@@ -27,17 +27,13 @@ class Agreement(models.Model):
             ["agreement_id"],
             ["agreement_id"],
         )
-        out_data = dict(
-            [(x["agreement_id"][0], x["agreement_id_count"]) for x in out_rg_res]
-        )
+        out_data = {x["agreement_id"][0]: x["agreement_id_count"] for x in out_rg_res}
         in_rg_res = aio.read_group(
             base_domain + [("move_type", "in", ("in_invoice", "in_refund"))],
             ["agreement_id"],
             ["agreement_id"],
         )
-        in_data = dict(
-            [(x["agreement_id"][0], x["agreement_id_count"]) for x in in_rg_res]
-        )
+        in_data = {x["agreement_id"][0]: x["agreement_id_count"] for x in in_rg_res}
         for agreement in self:
             agreement.out_invoice_count = out_data.get(agreement.id, 0)
             agreement.in_invoice_count = in_data.get(agreement.id, 0)

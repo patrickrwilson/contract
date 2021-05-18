@@ -13,7 +13,7 @@ class AccountMove(models.Model):
         comodel_name="agreement",
         string="Agreement",
         ondelete="restrict",
-        track_visibility="onchange",
+        tracking=True,
         readonly=True,
         copy=False,
         states={"draft": [("readonly", False)]},
